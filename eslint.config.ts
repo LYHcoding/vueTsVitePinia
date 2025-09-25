@@ -22,12 +22,22 @@ export default defineConfigWithVueTs(
 
   pluginVue.configs['flat/essential'],
   vueTsConfigs.recommended,
-  
+
+  // 新增：自定义规则，解决 any 类型问题，需要放在 'vueTsConfigs.recommended' 配置后，否则会被默认规则覆盖
+  {
+    files: ['**/*.{ts,mts,tsx,vue}'],
+    rules: {
+      // '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-explicit-any': 'warn',
+      // '@typescript-eslint/no-explicit-any': 'off',
+    }
+  },
+
   {
     ...pluginVitest.configs.recommended,
     files: ['src/**/__tests__/*'],
   },
-  
+
   {
     ...pluginCypress.configs.recommended,
     files: [

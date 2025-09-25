@@ -18,9 +18,19 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
     {
+      path: '/note/basicCommand',
+      name: 'basicCommand',
+      component: () => import('../views/Note.vue/basicCommand.vue')
+    },
+    {
       path: '/note/dynamicEvent',
       name: 'dynamicEvent',
       component: () => import('../views/Note.vue/dynamicEvent.vue')
+    },
+    {
+      path: '/note/vMemo',
+      name: 'vMemo',
+      component: () => import('../views/Note.vue/vMemo.vue')
     },
   ],
 })
