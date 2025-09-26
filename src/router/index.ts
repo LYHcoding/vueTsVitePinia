@@ -20,17 +20,22 @@ const router = createRouter({
     {
       path: '/note/basicCommand',
       name: 'basicCommand',
-      component: () => import('../views/Note.vue/basicCommand.vue')
+      component: () => import('../views/note/basicCommand.vue')
     },
     {
       path: '/note/dynamicEvent',
       name: 'dynamicEvent',
-      component: () => import('../views/Note.vue/dynamicEvent.vue')
+      component: () => import('../views/note/dynamicEvent.vue')
     },
     {
       path: '/note/vMemo',
       name: 'vMemo',
-      component: () => import('../views/Note.vue/vMemo.vue')
+      component: () => import('../views/note/vMemo.vue')
+    },
+    {
+      path: '/note/refRelated',
+      name: 'refRelated',
+      component: () => import('../views/note/refRelated.vue')
     },
   ],
 })

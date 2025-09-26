@@ -60,7 +60,7 @@ const changeName = () => {
   console.log(text)
 }
 
-// 响应式常量 ref
+// 响应式对象 ref
 type RF = {
   name: string
 }
