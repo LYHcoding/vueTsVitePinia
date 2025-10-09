@@ -166,5 +166,6 @@ diffList.splice(3,0,'DDD')
 }
 .h {
   border: 1px solid #ccc;
+  padding: 5px;
 }
 </style>

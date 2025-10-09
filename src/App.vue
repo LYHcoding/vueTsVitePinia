@@ -1,38 +1,33 @@
 <template>
-  <div>
-    <div class="reactiveRelated">
-      <div class="reactiveText border">
-        <div class="object">
-          <a class="titleText">reactive 基础用法:</a>
-          <div class="nameText">{{ person }}</div>
-          <div class="nameText">{{ person.name }}</div>
-        </div>
-        <a class="titleText">响应式对象 reactive:</a>
-
-      </div>
-      <hr />
-
-      <div class="reactive border">
-        <a class="titleText">响应式对象 reactive:</a>
-      </div>
+  <div class="toRelated">
+    <div class="toRef border">
+      <a class="titleText">toRef:</a><br />
+      <div>state:{{ state }}</div>
+      <button @click="change1">test1</button>&nbsp;
+      <button @click="change2">test2</button>
     </div>
+    <hr />
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, toRef } from 'vue'
 
-// reactive 复杂数据类型的响应式对象
-let person = reactive({
-   name:"lyh"
-})
-person.name = "LYH"
-
+// toRef 转化为响应式对象
+const obj = {
+  foo: 1,
+  bar: 2
+}
+const state = toRef(obj,'bar')
+const cahnge = () => {
+  state.value++
+}
 </script>
 
 <style scoped>
 .border {
   border: 1px solid #cccccc;
+  padding: 5px;
 }
 .titleText {
   color: gray;

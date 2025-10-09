@@ -1,47 +1,52 @@
 <template>
-  <div>
-    <div class="refRelated">
-      <div class="Text border">
-        <a class="titleText">非响应式对象:</a>
-        <div class="nameText">{{ text.name }}</div>
-        <button @click="changeName">change</button>
-      </div>
+  <div class="refRelated">
+    <div class="Text border">
+      <a class="titleText">非响应式对象:</a>
+      <div class="nameText">{{ text.name }}</div>
+      <button @click="changeName">change</button>
+    </div>
+    <hr />
+    <div class="refText border">
+      <a class="titleText">响应式对象 ref:</a>
+      <div class="refNameText">{{ refName.name }}</div>
+      <button @click="changeRefName">change2</button>
+    </div>
+    <div class="isRefTRes border">
+      <a class="titleText">isRef 判断:</a>
+      <div class="isRefText">普通值: {{ text }} - {{ isRef(text) }}</div>
+      <div class="isRefText">&nbsp;&nbsp; {{ notRef }} - {{ isRef(notRef) }}</div>
+      <div class="isRefText">ref对象: {{ refName }} - {{ isRef(refName) }}</div>
+      <!-- Vue 会自动将 message 解包为其内部值，即 message.value 的字符串值 "message"/"change msg"，而非 ref 对象本身 -->
+      <div class="isRefText">&nbsp;&nbsp; {{ message }} - {{ isRef(message) }}</div>
+      <div class="isRefText">isRef判断结果: {{ isRefResult }} - {{ isRef(isRefResult) }}</div>
+      <div class="isRefText">计算属性(值): {{ messageNotRef }} - {{ isRef(messageNotRef) }}</div>
+      <!-- 解决方法：将 ref 包装在对象中； 使用计算属性返回 ref 本身 -->
+      <div class="isRefText">计算属性(ref):{{ messageRef }} - {{ isRef(messageRef) }}</div>
+      <div class="isRefText">包装对象中的ref: {{ wrapper.message }} - {{ isRef(wrapper.message) }}</div>
       <hr />
-      <div class="refText border">
-        <a class="titleText">响应式对象 ref:</a>
-        <div class="refNameText">{{ refName.name }}</div>
-        <button @click="changeRefName">change2</button>
-      </div>
-      <div class="isRefTRes border">
-        <a class="titleText">isRef 判断:</a>
-        <div class="isRefText">普通值: {{ text }} - {{ isRef(text) }}</div>
-        <div class="isRefText">&nbsp;&nbsp; {{ notRef }} - {{ isRef(notRef) }}</div>
-        <div class="isRefText">ref对象: {{ refName }} - {{ isRef(refName) }}</div>
-        <!-- Vue 会自动将 message 解包为其内部值，即 message.value 的字符串值 "message"/"change msg"，而非 ref 对象本身 -->
-        <div class="isRefText">&nbsp;&nbsp; {{ message }} - {{ isRef(message) }}</div>
-        <div class="isRefText">isRef判断结果: {{ isRefResult }} - {{ isRef(isRefResult) }}</div>
-        <div class="isRefText">计算属性(值): {{ messageNotRef }} - {{ isRef(messageNotRef) }}</div>
-        <!-- 解决方法：将 ref 包装在对象中； 使用计算属性返回 ref 本身 -->
-        <div class="isRefText">计算属性(ref):{{ messageRef }} - {{ isRef(messageRef) }}</div>
-        <div class="isRefText">包装对象中的ref: {{ wrapper.message }} - {{ isRef(wrapper.message) }}</div>
-        <hr />
-        <button @click="changeMsg">changeMsg</button>
-      </div>
-      <div class="shallowRefText border">
-        <a class="titleText">浅层响应式对象 shallowRef:</a><br />
-        {{ shallowRefText }}<br />
-        <button @click="changeSRValueF">changeSRValueF</button> <a class="titleText">修改属性(不触发更新)</a><br />
-        <button @click="changeSRValueT">changeSRValueT</button> <a class="titleText">替换整个对象(触发更新)</a>
-      </div>
-      <div class="triggerRefText border">
-        <a class="titleText">手动触发更新dom triggerRef:</a><br />
-        <button @click="useTriggerRef">useTriggerRef</button>
-      </div>
-      <div class="customRefText border">
-        <a class="titleText">自定义防抖ref customRef:</a><br />
-        {{ customRefText }}<br />
-        <button @click="changeCustomRefText">changeCustomRefText</button> <p class="titleText">500ms内的多次点击只会执行最后一次更新</p>
-      </div>
+      <button @click="changeMsg">changeMsg</button>
+    </div>
+    <div class="shallowRefText border">
+      <a class="titleText">浅层响应式对象 shallowRef:</a><br />
+      {{ shallowRefText }}<br />
+      <button @click="changeSRValueF">changeSRValueF</button> <a class="titleText">修改属性(不触发更新)</a><br />
+      <button @click="changeSRValueT">changeSRValueT</button> <a class="titleText">替换整个对象(触发更新)</a><hr />
+      {{ message }}<br />{{ shallowRefText }}<br />
+      <button @click="changeAffectValue">changeAffectValue</button> <a class="titleText">深层属性被其他ref影响了</a><br />
+    </div>
+    <div class="triggerRefText border">
+      <a class="titleText">手动触发更新dom triggerRef:</a><br />
+      <button @click="useTriggerRef">useTriggerRef</button>
+    </div>
+    <div class="customRefText border">
+      <a class="titleText">自定义防抖ref customRef:</a><br />
+      {{ customRefText }}<br />
+      <button @click="changeCustomRefText">changeCustomRefText</button> <p class="titleText">500ms内的多次点击只会执行最后一次更新</p>
+    </div>
+    <div class="refReadDom border">
+      <a class="titleText">ref 读取dom元素属性:</a><br />
+      <div ref="divMessage">{{ message }}</div>
+      <button @click="readDivDom">readDivDom</button>
     </div>
   </div>
 </template>
@@ -61,6 +66,7 @@ const changeName = () => {
 }
 
 // 响应式对象 ref
+// ref 基础用法，在取值和赋值时需要添加.value
 type RF = {
   name: string
 }
@@ -105,6 +111,11 @@ const changeSRValueT = () => {
   shallowRefText.value = { name: 'change shallowRefText 2' }
   console.log(shallowRefText)
 }
+const changeAffectValue = () => {
+  shallowRefText.value.name = '我被影响了'
+  message.value = '我是ref'
+  // triggerRef(shallowRefText)
+}
 
 // triggerRef 更新dom，强制更新页面DOM
 const useTriggerRef = () => {
@@ -124,7 +135,7 @@ const changeCustomRefText = () => {
 // function useCustomRef<T=unknown>(value: T) {
 function useCustomRef<T>(value: T) {
   // let timer:any;  // warn: Unexpected any. Specify a different type.eslint@typescript-eslint/no-explicit-any
-  let timer: number | null;
+  let timer: number | undefined | null
   return customRef((track, trigger) => {
     return {
       get() {
@@ -147,11 +158,19 @@ function useCustomRef<T>(value: T) {
     }
   })
 }
+
+// ref 小用法：可以读取dom元素属性
+const divMessage = ref<HTMLDivElement>()
+console.log(divMessage.value?.innerHTML)
+const readDivDom = () => {
+  console.log(divMessage.value?.innerHTML)
+}
 </script>
 
 <style scoped>
 .border {
   border: 1px solid #cccccc;
+  padding: 5px;
 }
 .titleText {
   color: gray;
