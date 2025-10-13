@@ -17,26 +17,44 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
     },
+
     {
       path: '/note/basicCommand',
       name: 'basicCommand',
       component: () => import('../views/note/basicCommand.vue')
     },
     {
-      path: '/note/dynamicEvent',
-      name: 'dynamicEvent',
-      component: () => import('../views/note/dynamicEvent.vue')
-    },
-    {
-      path: '/note/vMemo',
-      name: 'vMemo',
-      component: () => import('../views/note/vMemo.vue')
-    },
-    {
       path: '/note/refRelated',
       name: 'refRelated',
       component: () => import('../views/note/refRelated.vue')
     },
+    {
+      path: '/note/reactiveRelated',
+      name: 'reactiveRelated',
+      component: () => import('../views/note/reactiveRelated.vue')
+    },
+    {
+      path: '/note/toRelated',
+      name: 'toRelated',
+      component: () => import('../views/note/toRelated.vue')
+    },
+    {
+      path: '/note/computedRelated',
+      name: 'computedRelated',
+      component: () => import('../views/note/computedRelated.vue')
+    },
+
+    {
+      path: '/note/dynamicEvent',
+      name: 'dynamicEvent',
+      component: () => import('../views/note/template/dynamicEvent.vue')
+    },
+    {
+      path: '/note/vMemo',
+      name: 'vMemo',
+      component: () => import('../views/note/template/vMemo.vue')
+    },
+
   ],
 })
 
