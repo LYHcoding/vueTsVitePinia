@@ -28,7 +28,7 @@
       </tbody>
       <tfoot>
         <tr>
-            <td colspan="5" align="right">
+            <td colspan="5" align="right" style="padding-right:10px;">
                 <span>总价：{{ total }}</span>
             </td>
         </tr>
@@ -38,7 +38,7 @@
 </template>
 
 <script setup lang='ts'>
-import { reactive, ref,computed } from 'vue'
+import { reactive, ref, computed } from 'vue'
 const keyWord = ref<string>('')
 interface Data {
     name: string,
