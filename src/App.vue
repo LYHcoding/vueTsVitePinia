@@ -1,82 +1,139 @@
 <template>
-  <div>
-    <input placeholder="请输入名称" v-model="keyWord" type="text">
-    <table style="margin-top:10px;" width="500" cellspacing="0" cellpadding="0" border>
-      <thead>
-        <tr>
-          <th>物品</th>
-          <th>单价</th>
-          <th>数量</th>
-          <th>总价</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, index) in searchData" :key="index">
-            <td align="center">{{ item.name }}</td>
-            <td align="center">{{ item.price }}</td>
-            <td align="center">
-                <button @click="item.num > 1 ? item.num-- : null">-</button>
-                <input v-model="item.num" type="number">
-                <button @click="item.num < 99 ? item.num++ : null">+</button>
-            </td>
-            <td align="center">{{ item.price * item.num }}</td>
-            <td align="center">
-                <button @click="del(index)">删除</button>
-            </td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-            <td colspan="5" align="right" style="padding-right:10px;">
-                <span>总价：{{ total }}</span>
-            </td>
-        </tr>
-      </tfoot>
-    </table>
+  <div class="mapRelated">
+    <div class="map border">
+      <a class="titleText">map 集合:</a><br />
+      <div class="non-mapSet split">
+        <div>
+          <div>非响应式 map:{{ map }}</div>
+          数据条目：<br />
+          <div v-for="([key, value], idx) in map" :key="idx">
+            键：{{ key }} → 值：{{ value }}
+          </div>
+          <div v-if="map.size === 0">暂无数据</div>
+        </div>
+      </div>
+      <hr />
+      <div class="ref-mapSet split">
+        <div>
+          <div>响应式 map2:{{ map2 }}</div>
+          数据条目：<br />
+          <div v-for="([key, value], idx) in map2" :key="idx">
+            键：{{ key }} → 值：{{ value }}
+          </div>
+          <div v-if="map2.size === 0">暂无数据</div>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="weakMap border">
+      <a class="titleText">weakMap 集合（弱引用）:</a><br />
+      <div class="weakMapSet split">
+        <div>
+          <div>非响应式 weakMap:{{ weakMap }}</div>
+          数据状态：<br />
+          <div>是否存在数据：{{ weakMap.has(obj) ? '是' : '否' }}</div>
+          <div>通过 get 获取值：{{ weakMap.get(obj) || 'undefined' }}</div>
+        </div>
+      </div>
+      <hr />
+      <div class="weakMapSet split">
+        <div>
+          <div>响应式 weakMap2:{{ weakMap2 }}</div>
+          数据状态：<br />
+          <div>是否存在数据：{{ weakMap2.has(obj) ? '是' : '否' }}</div>
+          <div>通过 get 获取值：{{ weakMap2.get(obj) || 'undefined' }}</div>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="button split">
+      <div><button @click="clearSet">清空非集</button></div>
+      <div><button @click="clearSet2">清空响集</button></div>
+      <div><button @click="delayVerify">延时验非</button></div>
+      <div><button @click="delayVerify2">延时验响</button></div>
+      <div><button @click="updateDate">更新数据</button></div>
+      <div><button @click="resetDate">重置数据</button></div>
+    </div>
   </div>
 </template>
 
-<script setup lang='ts'>
-import { reactive, ref, computed } from 'vue'
-const keyWord = ref<string>('')
-interface Data {
-    name: string,
-    price: number,
-    num: number
+<script setup lang="ts">
+import { ref } from 'vue'
+const map = new Map()
+const weakMap = new WeakMap()
+let obj = { name: 'lyh' }
+// 向集合中添加键值对（键为obj对象，值为字符串）
+map.set(obj, 'mapDefaultValue')
+weakMap.set(obj, 'weakMapDefaultValue')
+console.log("map:", map, map.get(obj))
+console.log("weakMap:", weakMap, weakMap.get(obj))
+
+// 新建对比的响应式对象
+const map2 = ref(new Map())
+const weakMap2 = ref(new WeakMap())
+map2.value.set(obj, 'map2RespondValue')
+weakMap2.value.set(obj, 'weakMap2RespondValue')
+console.log("map2:", map2.value, map2.value.get(obj))
+console.log("weakMap2:", weakMap2.value, weakMap2.value.get(obj))
+
+const clearSet = () => {
+  obj = null
+  console.log("map:", map, map.get(obj))
+  // 当obj对象被垃圾回收后，weakMap集合中对应的键值对也会被自动删除
+  // 日志中WeakMap显示有条目，这只是控制台的临时预览效果，并非实际仍存在原键值对；
+  // JavaScript 的垃圾回收是自动且异步的，console 打印时可能还未完成垃圾回收，所以在日志中看不到立即删除的效果
+  console.log("weakMap:", weakMap, weakMap.get(obj))
 }
-const data = reactive<Data[]>([
-    {
-        name: "小满的绿帽子",
-        price: 100,
-        num: 1,
-    },
-    {
-        name: "小满的红衣服",
-        price: 200,
-        num: 1,
-    },
-    {
-        name: "小满的黑袜子",
-        price: 300,
-        num: 1,
-    }
-])
-
-const searchData = computed(()=>{
-    return data.filter(item => item.name.includes(keyWord.value))
-})
-
-const total = computed(() => {
-    return data.reduce((prev: number, next: Data) => {
-        return prev + next.num * next.price
-    }, 0)
-})
-
-const del = (index: number) => {
-    data.splice(index, 1)
+const clearSet2 = () => {
+  obj = null
+  console.log("map2:", map2.value, map2.value.get(obj))
+  // 当obj对象被垃圾回收后，weakMap集合中对应的键值对也会被自动删除
+  // 日志中WeakMap显示有条目，这只是控制台的临时预览效果，并非实际仍存在原键值对；
+  // JavaScript 的垃圾回收是自动且异步的，console 打印时可能还未完成垃圾回收，所以在日志中看不到立即删除的效果
+  console.log("weakMap2:", weakMap2.value, weakMap2.value.get(obj))
 }
 
+const delayVerify = () => {
+  setTimeout(() => {
+    console.log("map:", map.size)
+    // console.log("weakMap是否存在原键:", weakMap.has({ name: 'lyh' })) // 结果恒为 false
+    console.log("weakMap是否存在原键:", weakMap.has(obj)) // false
+    console.log("weakMap大小（无法直接获取，需间接判断）:", !weakMap.get(obj))
+  }, 1000)
+}
+const delayVerify2 = () => {
+  setTimeout(() => {
+    console.log("map2:", map2.value.size)
+    // console.log("weakMap2是否存在原键:", weakMap2.has({ name: 'lyh' })) // 结果恒为 false
+    console.log("weakMap2是否存在原键:", weakMap2.value.has(obj)) // false
+    console.log("weakMap2大小（无法直接获取，需间接判断）:", !weakMap2.value.get(obj))
+  }, 1000)
+}
+
+// 响应式刷新标记（控制组件重渲染）
+const refreshFlag = ref(0)
+const updateDate = () => {
+  // 修改响应式标记，强制组件重新渲染
+  refreshFlag.value++
+  console.log("数据已更新，界面将重新渲染")
+}
+const resetDate = () => {
+
+}
 </script>
 
-<style scoped lang='less'></style>
+<style scoped>
+.border {
+  border: 1px solid #cccccc;
+  padding: 5px;
+}
+.titleText {
+  color: gray;
+}
+.split {
+  display: flex;
+}
+.split div {
+  flex: 1;
+}
+</style>
