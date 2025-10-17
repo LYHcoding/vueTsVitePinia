@@ -64,7 +64,7 @@
 import { ref } from 'vue'
 const map = new Map()
 const weakMap = new WeakMap()
-let obj: { name: string } | null = { name: 'lyh' }
+let obj = { name: 'lyh' }
 // 向集合中添加键值对（键为obj对象，值为字符串）
 map.set(obj, 'mapDefaultValue')
 weakMap.set(obj, 'weakMapDefaultValue')
@@ -80,8 +80,8 @@ console.log("map2:", map2.value)
 console.log("weakMap2:", weakMap2.value)
 
 const printLog = () => {
-  console.log("非响应式 map:", map.get(obj),"weakMap:",  obj ? weakMap.get(obj) : undefined)
-  console.log("响应式 map2:", map2.value.get(obj),"weakMap2:",  obj ? weakMap2.value.get(obj) : undefined)
+  console.log("非响应式 map:", map.get(obj),"weakMap:", weakMap.get(obj))
+  console.log("响应式 map2:", map2.value.get(obj),"weakMap2:", weakMap2.value.get(obj))
 }
 printLog()
 
@@ -91,7 +91,7 @@ const clearSet = () => {
   // 当obj对象被垃圾回收后，weakMap集合中对应的键值对也会被自动删除
   // 日志中WeakMap显示有条目，这只是控制台的临时预览效果，并非实际仍存在原键值对；
   // JavaScript 的垃圾回收是自动且异步的，console 打印时可能还未完成垃圾回收，所以在日志中看不到立即删除的效果
-  console.log("weakMap:", weakMap,  obj ? weakMap.get(obj) : undefined)
+  console.log("weakMap:", weakMap, weakMap.get(obj))
 }
 const clearSet2 = () => {
   obj = null
@@ -99,23 +99,23 @@ const clearSet2 = () => {
   // 当obj对象被垃圾回收后，weakMap集合中对应的键值对也会被自动删除
   // 日志中WeakMap显示有条目，这只是控制台的临时预览效果，并非实际仍存在原键值对；
   // JavaScript 的垃圾回收是自动且异步的，console 打印时可能还未完成垃圾回收，所以在日志中看不到立即删除的效果
-  console.log("weakMap2:", weakMap2.value,  obj ? weakMap2.value.get(obj) : undefined)
+  console.log("weakMap2:", weakMap2.value, weakMap2.value.get(obj))
 }
 
 const delayVerify = () => {
   setTimeout(() => {
     console.log("map:", map.size)
     // console.log("weakMap是否存在原键:", weakMap.has({ name: 'lyh' })) // 结果恒为 false
-    console.log("weakMap是否存在原键:",  obj ? weakMap.has(obj) : false) // false
-    console.log("weakMap大小（无法直接获取，需间接判断）:", obj ? !weakMap.get(obj) : true)
+    console.log("weakMap是否存在原键:", weakMap.has(obj)) // false
+    console.log("weakMap大小（无法直接获取，需间接判断）:", !weakMap.get(obj))
   }, 1000)
 }
 const delayVerify2 = () => {
   setTimeout(() => {
     console.log("map2:", map2.value.size)
     // console.log("weakMap2是否存在原键:", weakMap2.has({ name: 'lyh' })) // 结果恒为 false
-    console.log("weakMap2是否存在原键:", obj ? weakMap2.value.has(obj) : false) // false
-    console.log("weakMap2大小（无法直接获取，需间接判断）:", obj ? !weakMap2.value.get(obj) : true)
+    console.log("weakMap2是否存在原键:", weakMap2.value.has(obj)) // false
+    console.log("weakMap2大小（无法直接获取，需间接判断）:", !weakMap2.value.get(obj))
   }, 1000)
 }
 

@@ -43,6 +43,11 @@ const router = createRouter({
       name: 'computedRelated',
       component: () => import('../views/note/computedRelated.vue')
     },
+    {
+      path: '/note/mapRelated',
+      name: 'mapRelated',
+      component: () => import('../views/note/mapRelated.vue')
+    },
 
     {
       path: '/note/dynamicEvent',
