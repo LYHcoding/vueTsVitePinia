@@ -1,6 +1,6 @@
 # vueTsVitePinia
 
-This template should help get you started developing with Vue 3 in Vite.
+This template should help get you started developing with Vue3+Ts+Vite+Pinia.
 
 ## Recommended IDE Setup
 
@@ -58,4 +58,39 @@ npm run test:e2e
 
 ```sh
 npm run lint
+```
+
+### Project Structure
+
+```
+vueTsVitePinia/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── views/
+│   ├── App.vue
+│   ├── main.ts
+│   ├── router.ts
+│   ├── store.ts
+│   ├── types.d.ts
+├── public/
+├── index.html
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+```
+
+### Template and Note List about Vue3
+
+```
+src/views/note
+├── template/
+│   ├── 动态事件
+│   ├── 购物车
+├── 基本命令
+├── computed 相关
+├── map 相关
+├── reactive 相关
+├── ref 相关
+├── to 相关
 ```
