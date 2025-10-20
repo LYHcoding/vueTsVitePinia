@@ -1,9 +1,25 @@
 <template>
-  <div class="watchRelated">
-    <div class="watch border">
-      <a class="titleText">watch:</a><br />
-      <div class="watchCase split">
-        <div>watch 监听Ref案例</div>
+  <div class="watchEffectRelated">
+    <div class="watchEffectRef border">
+      <a class="titleText">watchEffect Ref 监听Ref案例:</a><br />
+      <div class="watchEffectCase split">
+        <div>{{ message }}</div>
+        <div>{{ message2 }}</div>
+      </div>
+      <div class="split">
+        <div><button @click="changeRef">changeRef</button></div>
+        <div><button @click="changeRef2">changeRef2</button></div>
+      </div>
+    </div>
+    <hr />
+    <div class="watchEffectFuction border">
+      <a class="titleText">watchEffect Fuction 监听触发前调用函数——防抖:</a><br />
+      <div class="watchEffectCase split">
+        <div>{{ message3 }}</div>
+        <div>{{ message4 }}</div>
+      </div>
+      <div class="split">
+        <div><button @click="changeRef3">changeRef3</button></div>
       </div>
     </div>
     <hr />
@@ -11,47 +27,57 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, reactive } from 'vue'
+import { ref, watchEffect } from 'vue';
 
-const message = ref({
-  nav:{
-    bar:{
-      name:""
+// watchEffect  立即执行传入的函数，同时响应式追踪其依赖，并在其依赖变更时重新运行该函数。
+// 如果用到message 就只会监听message 就是用到几个监听几个 而且是非惰性 会默认调用一次
+// watchEffect 监听Ref案例
+const message = ref<string>('msg')
+const message2 = ref<string>('msg2')
+ watchEffect(() => {
+    //console.log('message:', message.value);
+    console.log('message2:', message2.value);
+})
+const changeRef = () => {
+  message.value = 'changeRefMsg'
+}
+const changeRef2 = () => {
+  message2.value = 'changeRefMsg2'
+}
+
+// watchEffect 监听触发前调用函数——防抖
+const message3 = ref<string>('msg3')
+const message4 = ref<string>('msg4')
+const changeRef3 = () => {
+  message3.value = 'changeRefMsg3'
+  message4.value = 'changeRefMsg4'
+}
+watchEffect((oninvalidate) => {
+  oninvalidate(() => {
+    // setTimeout(() => {
+    //   console.log('添加防抖逻辑');
+    // }, 500);
+
+    debounce(debouncefunc, 5000)
+  })
+  console.log('message3:', message3.value);
+  console.log('message4:', message4.value);
+})
+
+const debouncefunc = () => {
+  console.log('添加防抖逻辑');
+}
+function debounce<T extends (...args:unknown[]) => unknown>(fn: T, delay: number) {
+  let timer: number | null = null
+  return function (this:unknown, ...args: Parameters<T>) {
+    if (timer) {
+      clearTimeout(timer)
     }
+    timer = setTimeout(() => {
+      fn.call(this, ...args)
+    }, delay)
   }
-})
-
-// watch 监听响应式对象，参数：监听源、回调函数、配置项
-watch(message, (newVal, oldVal) => {
-  console.log('新的值----', newVal);
-  console.log('旧的值----', oldVal);
-},{
-  // 是否立即调用一次回调函数
-  immediate:true,
-  // 是否开启深度监听
-  deep:true
-})
-
-const message1 = ref('')
-const message2 = ref('')
-// 监听多个ref时，注意监听源变成数组
-watch([message1,message2], (newVal, oldVal) => {
-    console.log('新的值----', newVal);
-    console.log('旧的值----', oldVal);
-})
-
-const message3 = reactive({
-    nav:{
-        bar:{
-            name:""
-        }
-    }
-})
-// 监听Reactive，是否开启deep的效果都是深层监听对象
-watch(message3, (newVal, oldVal) => {
-    console.log('新的值----', newVal);
-    console.log('旧的值----', oldVal);
-})
+}
 </script>
 
 <style scoped>

@@ -18,6 +18,7 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
 
+
     {
       path: '/note/basicCommand',
       name: 'basicCommand',
@@ -48,6 +49,12 @@ const router = createRouter({
       name: 'mapRelated',
       component: () => import('../views/note/mapRelated.vue')
     },
+    {
+      path: '/note/watchRelated',
+      name: 'watchRelated',
+      component: () => import('../views/note/watchRelated.vue')
+    },
+
 
     {
       path: '/note/dynamicEvent',
