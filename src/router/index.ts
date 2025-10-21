@@ -54,6 +54,11 @@ const router = createRouter({
       name: 'watchRelated',
       component: () => import('../views/note/watchRelated.vue')
     },
+    {
+      path: '/note/watchEffectRelated',
+      name: 'watchEffectRelated',
+      component: () => import('../views/note/watchEffectRelated.vue')
+    },
 
 
     {
