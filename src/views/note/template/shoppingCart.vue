@@ -1,4 +1,5 @@
 <template>
+  <!-- 购物车实例 -->
   <div>
     <input placeholder="请输入名称" v-model="keyWord" type="text">
     <table style="margin-top:10px;" width="500" cellspacing="0" cellpadding="0" border>

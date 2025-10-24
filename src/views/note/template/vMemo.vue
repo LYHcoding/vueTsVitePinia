@@ -1,6 +1,7 @@
 <template>
+  <!-- v-memo 原理与用法-->
   <!-- 需要继续深入学习 -->
-  <!-- v-memo用法,用于缓存具体元素节点的vnode,在节点更新时节约重新创建vnode的时间,节约patch比较的时间,他的核心就是复用vnode。小幅度手动提升一部分性能. -->
+  <!-- v-memo用法,用于缓存具体元素节点的vnode,在节点更新时节约重新创建vnode的时间,节约patch比较的时间,他的核心就是复用vnode。小幅度手动提升一部分性能 -->
   <div class="vMemo border">
     <!-- <div v-for="(item,index) in arr" :key="item"> -->
     <div v-for="(item,index) in arrlist" :key="item" v-memo="[index == 2]">

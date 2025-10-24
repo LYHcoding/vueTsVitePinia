@@ -1,4 +1,5 @@
 <template>
+  <!-- reactive 响应式对象相关 -->
   <div class="reactiveRelated">
     <div class="reactiveObject border">
       <a class="titleText">reactive 基础用法:</a>

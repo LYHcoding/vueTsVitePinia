@@ -1,4 +1,5 @@
 <template>
+  <!-- computed 计算属性 -->
   <div class="computedRelated">
     <div class="computed border">
       <a class="titleText">computed:</a><br />
@@ -19,8 +20,6 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-
-// computed 计算属性
 
 // 用法 函数形式
 const price1 = ref(0) //$0

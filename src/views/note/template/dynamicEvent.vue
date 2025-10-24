@@ -1,4 +1,5 @@
 <template>
+  <!-- 动态事件绑定实例 -->
   <div class="dynamic-events-demo">
     <h3>动态事件绑定示例</h3>
 
