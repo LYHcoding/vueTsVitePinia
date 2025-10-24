@@ -84,9 +84,18 @@ vueTsVitePinia/
 
 ```
 src/views/note
+├── parent_child/
+│   ├── parentChildComponent 主父组件
+│   ├── menuIndex 子组件
+│   ├── headerIndex 子组件
+│   ├── contentIndex 子组件
 ├── template/
+│   ├── 瀑布流
+│       ├── 瀑布流父组件
+│       ├── 瀑布流子组件
 │   ├── 动态事件
 │   ├── 购物车
+│   ├── vMemo
 ├── 基本命令
 ├── computed 相关
 ├── map 相关

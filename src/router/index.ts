@@ -59,6 +59,11 @@ const router = createRouter({
       name: 'watchEffectRelated',
       component: () => import('../views/note/watchEffectRelated.vue')
     },
+    {
+      path: '/note/parent_child/parentChildComponent',
+      name: 'parentChildComponent',
+      component: () => import('../views/note/parent_child/parentChildComponent.vue')
+    },
 
 
     {
@@ -70,6 +75,16 @@ const router = createRouter({
       path: '/note/vMemo',
       name: 'vMemo',
       component: () => import('../views/note/template/vMemo.vue')
+    },
+    {
+      path: '/note/shoppingCart',
+      name: 'shoppingCart',
+      component: () => import('../views/note/template/shoppingCart.vue')
+    },
+    {
+      path: '/note/waterFall',
+      name: 'waterFall',
+      component: () => import('../views/note/template/waterFall/waterFall.vue')
     },
 
   ],
