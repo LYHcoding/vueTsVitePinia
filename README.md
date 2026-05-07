@@ -83,25 +83,80 @@ vueTsVitePinia/
 ### Template and Note List about Vue3
 
 ```
-src/views/note
+src/components/
+├── ChildComponent 子组件
+├── Dialog 插槽子组件对话默认内容
+├── DirectiveDemo 自定义指令演示组件
+├── ErrorComponent 错误组件
+├── GlobalFunctionsDemo 全局函数演示组件
+├── GrandChildComponent 孙组件
+├── GreatGrandChildComponent 曾孙组件
+├── HooksDemo 自定义钩子组件
+├── LoadingComponent 加载中组件
+├── SiblingA 兄弟组件A
+├── SiblingB 兄弟组件B
+├── TabA 组件相关TabA
+├── TabAbout 关于组件
+├── TabB 组件相关TabB
+├── TabC 组件相关TabC
+├── TabHome 首页组件
+├── TabSettings 设置组件
+├── TeleportModal 传送模板
+├── TreeItem 递归具体项
+├── VModelDialog 对话组件
+src/directives/
+├── index.ts 自定义指令文件
+src/hooks/ 自定义Hooks文件
+├── useDebounce.ts
+├── useFetch.ts
+├── useImageToBase64.ts
+├── useLocalStorage.ts
+├── useMousePosition.ts
+├── useResize.ts
+src/types/
+├── global.d.ts 全局类型声明文件
+src/utils/
+├── bus.ts bus类
+├── globalFunctions.ts 全局函数定义文件
+src/views/note/
+├── Component/
+│   ├── componentRelated 组件相关主文件
+│   ├── dynamicComponent 动态组件
+│   ├── GlobalComponent 全局组件
+│   ├── ParentComponent 递归父组件
 ├── parent_child/
-│   ├── parentChildComponent 主父组件
-│   ├── menuIndex 子组件
-│   ├── headerIndex 子组件
 │   ├── contentIndex 子组件
+│   ├── headerIndex 子组件
+│   ├── menuIndex 子组件
+│   ├── parentChildComponent 主父组件
 ├── template/
-│   ├── 瀑布流
-│       ├── 瀑布流父组件
-│       ├── 瀑布流子组件
-│   ├── 动态事件
-│   ├── 购物车
+│   ├── waterFall/
+│       ├── waterFall 瀑布流父组件
+│       ├── waterFallChild 瀑布流子组件
+│   ├── dynamicEvent 动态事件
+│   ├── shoppingCart 购物车
 │   ├── vMemo
-├── 基本命令
+├── async&suspense 相关
+├── basicCommand 基本命令
+├── brother&bus 基本命令
 ├── computed 相关
+├── directive 相关
+├── globalFunctions 相关
+├── hooks 相关
+├── keepAlive 相关
 ├── map 相关
+├── provide&inject 相关
 ├── reactive 相关
 ├── ref 相关
+├── slot 相关
+├── teleport 相关
 ├── to 相关
+├── transitionGroup 相关
+├── transition 相关
+├── VModel 相关
 ├── watchEffect 相关
 ├── watch 相关
+src/
+├── App 主界面文件
+├── main.ts 主程序文件+更新注册全局函数和变量
 ```
