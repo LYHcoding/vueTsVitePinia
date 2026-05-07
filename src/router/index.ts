@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import CategoryView from '../views/CategoryView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,6 +11,16 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: '/default',
+      name: 'default',
+      component: () => import('../DefaultApp.vue'),
+    },
+    {
+      path: '/welcome',
+      name: 'welcome',
+      component: () => import('../components/TheWelcome.vue'),
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting
@@ -18,7 +29,15 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
 
+    // 分类级别的路由 - 使用同一个视图组件，通过路由参数区分
+    {
+      path: '/category/:categoryName',
+      name: 'category',
+      component: CategoryView,
+      props: true
+    },
 
+    // 保留原有详细路由作为备用
     {
       path: '/note/basicCommand',
       name: 'basicCommand',
@@ -64,27 +83,95 @@ const router = createRouter({
       name: 'parentChildComponent',
       component: () => import('../views/note/parent_child/parentChildComponent.vue')
     },
-
-
     {
-      path: '/note/dynamicEvent',
+      path: '/note/template/dynamicEvent',
       name: 'dynamicEvent',
       component: () => import('../views/note/template/dynamicEvent.vue')
     },
     {
-      path: '/note/vMemo',
+      path: '/note/template/vMemo',
       name: 'vMemo',
       component: () => import('../views/note/template/vMemo.vue')
     },
     {
-      path: '/note/shoppingCart',
+      path: '/note/template/shoppingCart',
       name: 'shoppingCart',
       component: () => import('../views/note/template/shoppingCart.vue')
     },
     {
-      path: '/note/waterFall',
+      path: '/note/template/waterFall',
       name: 'waterFall',
       component: () => import('../views/note/template/waterFall/waterFall.vue')
+    },
+    {
+      path: '/note/Component/componentRelated',
+      name: 'componentRelated',
+      component: () => import('../views/note/Component/componentRelated.vue')
+    },
+    {
+      path: '/note/Component/dynamicComponent',
+      name: 'dynamicComponent',
+      component: () => import('../views/note/Component/dynamicComponent.vue')
+    },
+    {
+      path: '/note/slotRelated',
+      name: 'slotRelated',
+      component: () => import('../views/note/slotRelated.vue')
+    },
+    {
+      path: '/note/async&suspenseRelated',
+      name: 'async&suspenseRelated',
+      component: () => import('../views/note/async&suspenseRelated.vue')
+    },
+    {
+      path: '/note/teleportRelated',
+      name: 'teleportRelated',
+      component: () => import('../views/note/teleportRelated.vue')
+    },
+    {
+      path: '/note/keepAliveRelated',
+      name: 'keepAliveRelated',
+      component: () => import('../views/note/keepAliveRelated.vue')
+    },
+    {
+      path: '/note/transitionRelated',
+      name: 'transitionRelated',
+      component: () => import('../views/note/transitionRelated.vue')
+    },
+    {
+      path: '/note/transitionGroupRelated',
+      name: 'transitionGroupRelated',
+      component: () => import('../views/note/transitionGroupRelated.vue')
+    },
+    {
+      path: '/note/provide&injectRelated',
+      name: 'provide&injectRelated',
+      component: () => import('../views/note/provide&injectRelated.vue')
+    },
+    {
+      path: '/note/brother&busRelated',
+      name: 'brother&busRelated',
+      component: () => import('../views/note/brother&busRelated.vue')
+    },
+    {
+      path: '/note/vModelRelated',
+      name: 'vModelRelated',
+      component: () => import('../views/note/vModelRelated.vue')
+    },
+    {
+      path: '/note/directiveRelated',
+      name: 'directiveRelated',
+      component: () => import('../views/note/directiveRelated.vue')
+    },
+    {
+      path: '/note/hooksRelated',
+      name: 'hooksRelated',
+      component: () => import('../views/note/hooksRelated.vue')
+    },
+    {
+      path: '/note/globalFunctionsRelated',
+      name: 'globalFunctionsRelated',
+      component: () => import('../views/note/globalFunctionsRelated.vue')
     },
 
   ],

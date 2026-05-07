@@ -78,12 +78,12 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { useMousePosition } from '../hooks/useMousePosition'
-import { useLocalStorage } from '../hooks/useLocalStorage'
-import { useDebounce } from '../hooks/useDebounce'
-import { useResize } from '../hooks/useResize'
-import { useFetch } from '../hooks/useFetch'
-import { useImageToBase64 } from '../hooks/useImageToBase64'
+import { useMousePosition } from '@/hooks/useMousePosition'
+import { useLocalStorage } from '@/hooks/useLocalStorage'
+import { useDebounce } from '@/hooks/useDebounce'
+import { useResize } from '@/hooks/useResize'
+import { useFetch } from '@/hooks/useFetch'
+import { useImageToBase64 } from '@/hooks/useImageToBase64'
 
 // 1. 鼠标位置
 const { x: mouseX, y: mouseY } = useMousePosition()

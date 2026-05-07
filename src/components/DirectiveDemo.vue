@@ -61,7 +61,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { vMove, vHasShow, vLazy, vBgColor, vDebounce } from '../directives'
+import { vMove, vHasShow, vLazy, vBgColor, vDebounce } from '@/directives'
 
 const clickCount = ref(0)
 

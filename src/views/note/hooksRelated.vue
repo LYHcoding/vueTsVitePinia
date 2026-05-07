@@ -81,7 +81,7 @@
 </template>
 
 <script setup lang="ts">
-import HooksDemo from './components/HooksDemo.vue'
+import HooksDemo from '@/components/HooksDemo.vue'
 </script>
 
 <style scoped>

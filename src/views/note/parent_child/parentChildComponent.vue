@@ -37,9 +37,6 @@
 </template>
 
 <script setup lang="ts">
-// import Menu from './Menu/index.vue'
-// import Header from './Header/index.vue'
-// import Content from './Content/index.vue'
 import Menu from './menuIndex.vue'
 import Header from './headerIndex.vue'
 import Content from './contentIndex.vue'

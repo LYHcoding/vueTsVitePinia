@@ -7,21 +7,21 @@ export const vMove: Directive = {
     const mouseDown = (e: MouseEvent) => {
       const X = e.clientX - el.offsetLeft
       const Y = e.clientY - el.offsetTop
-      
+
       const move = (e: MouseEvent) => {
         el.style.left = `${e.clientX - X}px`
         el.style.top = `${e.clientY - Y}px`
       }
-      
+
       const mouseUp = () => {
         document.removeEventListener('mousemove', move)
         document.removeEventListener('mouseup', mouseUp)
       }
-      
+
       document.addEventListener('mousemove', move)
       document.addEventListener('mouseup', mouseUp)
     }
-    
+
     moveEl.addEventListener('mousedown', mouseDown)
   }
 }
@@ -36,7 +36,7 @@ export const vHasShow: Directive<HTMLElement, string> = (el, binding) => {
     'admin:shop:delete',
     'guest:shop:view'
   ]
-  
+
   if (!permissions.includes(`${userId}:${binding.value}`)) {
     el.style.display = 'none'
   }
@@ -55,7 +55,7 @@ export const vLazy: Directive<HTMLImageElement, string> = {
     }, {
       rootMargin: '100px'
     })
-    
+
     observer.observe(el)
   }
 }

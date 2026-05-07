@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import { inject, computed, ref } from 'vue'
 import type { Ref } from 'vue'
-import GrandChildComponent from './GrandChildComponent.vue'
+import GrandChildComponent from '@/components/GrandChildComponent.vue'
 
 // 使用 inject 接收数据（保留 ref 对象，保持响应式）
 const userName = inject<Ref<string>>('userName', ref(''))

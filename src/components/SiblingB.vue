@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import bus from '../utils/bus'
+import bus from '@/utils/bus'
 
 const receivedMessage = ref('')
 const receivedCount = ref(0)

@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import bus from '../utils/bus'
+import bus from '@/utils/bus'
 
 const count = ref(0)
 

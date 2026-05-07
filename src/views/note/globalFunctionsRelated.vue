@@ -83,7 +83,7 @@
 </template>
 
 <script setup lang="ts">
-import GlobalFunctionsDemo from './components/GlobalFunctionsDemo.vue'
+import GlobalFunctionsDemo from '@/components/GlobalFunctionsDemo.vue'
 </script>
 
 <style scoped>

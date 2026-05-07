@@ -93,7 +93,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import VModelDialog from './components/VModelDialog.vue'
+import VModelDialog from '@/components/VModelDialog.vue'
 
 // 单个 v-model
 const showDialog = ref(false)

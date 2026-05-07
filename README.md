@@ -83,6 +83,8 @@ vueTsVitePinia/
 ### Template and Note List about Vue3
 
 ```
+src/assets/
+├── main.css 主界面样式文件
 src/components/
 ├── ChildComponent 子组件
 ├── Dialog 插槽子组件对话默认内容
@@ -95,6 +97,7 @@ src/components/
 ├── LoadingComponent 加载中组件
 ├── SiblingA 兄弟组件A
 ├── SiblingB 兄弟组件B
+├── SidebarNav 主界面侧边栏导航组件
 ├── TabA 组件相关TabA
 ├── TabAbout 关于组件
 ├── TabB 组件相关TabB
@@ -104,6 +107,8 @@ src/components/
 ├── TeleportModal 传送模板
 ├── TreeItem 递归具体项
 ├── VModelDialog 对话组件
+src/constants/
+├── navigation.ts 导航项类型定义
 src/directives/
 ├── index.ts 自定义指令文件
 src/hooks/ 自定义Hooks文件
@@ -156,7 +161,10 @@ src/views/note/
 ├── VModel 相关
 ├── watchEffect 相关
 ├── watch 相关
+src/views/
+├── CategoryView 分类视图组件
+├── HomeView 首页组件
 src/
-├── App 主界面文件
+├── App 导航主界面文件
 ├── main.ts 主程序文件+更新注册全局函数和变量
 ```
