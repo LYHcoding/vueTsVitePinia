@@ -143,7 +143,7 @@ src/views/note/
 │   ├── vMemo
 ├── async&suspense 相关
 ├── basicCommand 基本命令
-├── brother&bus 基本命令
+├── brother&bus 相关
 ├── computed 相关
 ├── directive 相关
 ├── globalFunctions 相关

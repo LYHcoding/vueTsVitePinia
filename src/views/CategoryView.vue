@@ -7,9 +7,14 @@
           <p class="component-path">组件路径: {{ localSelectedItem.component }}</p>
         </div>
         <div class="content-body">
-          <Transition name="fade" mode="out-in">
-            <component :is="currentComponent" :key="localSelectedItem.name" />
-          </Transition>
+          <template v-if="isMultiRootComponent(localSelectedItem?.name)">
+            <component :is="currentComponent" :key="localSelectedItem.name" v-bind="getComponentProps(localSelectedItem?.name)" />
+          </template>
+          <template v-else>
+            <Transition name="fade" mode="out-in">
+              <component :is="currentComponent" :key="localSelectedItem.name" v-bind="getComponentProps(localSelectedItem?.name)" />
+            </Transition>
+          </template>
         </div>
       </div>
 
@@ -33,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, markRaw, onMounted, watch, inject, type Ref } from 'vue'
+import { ref, computed, markRaw, onMounted, watch, inject, provide, type Ref } from 'vue'
 import { navigationCategories, type NavItem } from '@/constants/navigation'
 
 const props = defineProps<{
@@ -43,6 +48,20 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'select', item: NavItem): void
 }>()
+
+const userName = ref('LYH')
+const themeColor = ref('#42b983')
+const isDark = ref(false)
+
+provide('userName', userName)
+provide('themeColor', themeColor)
+provide('isDark', isDark)
+provide('updateUserName', (name: string) => { userName.value = name })
+provide('resetSettings', () => {
+  userName.value = 'LYH'
+  themeColor.value = '#42b983'
+  isDark.value = false
+})
 
 const currentCategory = computed(() => {
   return navigationCategories.find(cat => cat.name === props.categoryName)
@@ -56,7 +75,24 @@ const currentComponent = ref<object | null>(null)
 const externalSelectedItem = inject<Ref<NavItem | null>>('selectedItem', ref(null))
 
 const getComponentPath = (component: string) => {
-  return `src/views/note/${component}`
+  if (component.startsWith('../')) {
+    return `src/${component.slice(3)}`
+  } else {
+    return `src/views/note/${component}`
+  }
+}
+
+const multiRootComponents = ['theWelcome', 'defaultApp']
+
+const isMultiRootComponent = (name?: string) => {
+  return name && multiRootComponents.includes(name)
+}
+
+const getComponentProps = (name?: string) => {
+  if (name === 'helloWorld') {
+    return { msg: 'Welcome to Vue 3' }
+  }
+  return {}
 }
 
 const isItemSelected = (item: NavItem) => {
@@ -74,8 +110,13 @@ const loadComponent = async (item: NavItem) => {
   await new Promise(resolve => requestAnimationFrame(resolve))
 
   try {
-    const componentPath = `./note/${item.component}`
-    const module = await import(componentPath)
+    let componentPath: string
+    if (item.component.startsWith('../')) {
+      componentPath = item.component
+    } else {
+      componentPath = `./note/${item.component}`
+    }
+    const module = await import(/* @vite-ignore */ componentPath)
 
     if (module.default) {
       currentComponent.value = markRaw(module.default)
@@ -223,6 +264,11 @@ onMounted(() => {
 
 .content-body {
   padding: 20px;
+  min-height: calc(100vh - 200px);
+}
+
+.content-body > * {
+  height: 100%;
 }
 
 .fade-enter-active,
